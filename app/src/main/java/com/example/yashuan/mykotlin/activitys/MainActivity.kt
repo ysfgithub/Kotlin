@@ -13,6 +13,10 @@ import com.example.yashuan.mykotlin.modles.User
 import com.example.yashuan.mykotlin.presenters.ILoginPresenter
 import com.example.yashuan.mykotlin.presenters.ILoginPresenterImpl
 
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
+
 class MainActivity : Activity(), ILoginAcvt, View.OnClickListener {
 
 
@@ -26,6 +30,12 @@ class MainActivity : Activity(), ILoginAcvt, View.OnClickListener {
         clickMe = findViewById(R.id.tv)
         clickMe.setOnClickListener(this)
         iLoginPresenter = ILoginPresenterImpl(this)
+
+        AppCenter.start(application, "59ad5e45-3e64-41f9-8b00-9a00654902b5",
+                Analytics::class.java, Crashes::class.java)
+        AppCenter.setLogLevel(Log.VERBOSE);
+
+        Log.v("app_center","App Center SDK configured in acmeworkspace  successfully")
     }
 
     override fun login() {
